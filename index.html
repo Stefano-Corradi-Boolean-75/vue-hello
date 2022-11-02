@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://unpkg.com/vue@3"></script>
+  
+  
+  <link rel="stylesheet" href="css/style.css">
+  	
+  
+  <title>Vue Hallo</title>
+</head>
+<body>
+  
+  <div id="app">
+    <!-- associando a un v-model un nostro data possiamo modificarlo reattivamente -->
+    <!-- v-model è una direttiva del tag input  -->
+    <input type="text" v-model="messaggio"><br>
+    <input type="text" v-model="miaClasse">
+    <!-- per stampare un dato dinamico lo richiamo allinterne della doppia graffa -->
+    <h1>{{altroMessaggio}} {{messaggio}}</h1>
+    <h2 v-bind:class="miaClasse">{{messaggio}}</h2>
+    <!-- se prima di qualsiasi attributto metto i : otterrò il bindig dell'attributo -->
+    <h2 :class="miaClasse">{{messaggio}}</h2>
+
+    <p>{{mioTestoNonHtml}}</p>
+    <p v-text="mioTestoNonHtml"></p>
+    <p v-text="mioTestoHtml"></p>
+    <p v-html="mioTestoHtml"></p>
+    <!-- tutot il codice fra le virgolette delle direttive, degli attributi bindati o delgi eventi è codice javaScript -->
+    <button @click="miaClasse = 'rosso'">testo rosso senza funzione</button><br>
+    <button @click="testoRosso()">testo rosso con funzione senza parametri</button><br>
+    <button @click="cambiaColore('rosso')">testo rosso con funzione con parametri</button><br>
+    <button @click="funzioneEstesa()">funzione estesa</button><br>
+    <button @click="funzioneCompatta()">funzione compatta</button><br>
+    <button @click="arrowFunciotn()">arrow funct</button><br>
+
+    <button @click="mostraNascondiTesto(true)">mostra testo</button><br>
+    <button @click="mostraNascondiTesto(false)">nascondi testo</button><br>
+    <button @click="toggleTesto()">toggle testo</button><br>
+    <button @click="isTestoShow = !isTestoShow">toggle testo senza funzione</button><br>
+
+    <!-- v-show ->  se è false la condizione (o la variabile) l'elemento viene nascosto con display:none -->
+    <p v-show="isTestoShow">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam vel ut inventore quod sed perspiciatis voluptas explicabo asperiores, tenetur labore accusamus necessitatibus odit soluta quibusdam a excepturi laudantium atque fugiat?
+    </p>
+    
+
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>
