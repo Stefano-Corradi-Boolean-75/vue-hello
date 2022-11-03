@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <script src="https://unpkg.com/vue@3"></script>
-  
   
   <link rel="stylesheet" href="css/style.css">
   	
@@ -15,20 +15,36 @@
 <body>
   
   <div id="app">
+    <h1>{{clock}}</h1>
     <!-- associando a un v-model un nostro data possiamo modificarlo reattivamente -->
     <!-- v-model è una direttiva del tag input  -->
-    <input type="text" v-model="messaggio"><br>
+    <input @keyup.enter="handlerKeyUp()" type="text" v-model="messaggio"><br>
     <input type="text" v-model="miaClasse">
+
     <!-- per stampare un dato dinamico lo richiamo allinterne della doppia graffa -->
     <h1>{{altroMessaggio}} {{messaggio}}</h1>
     <h2 v-bind:class="miaClasse">{{messaggio}}</h2>
+
     <!-- se prima di qualsiasi attributto metto i : otterrò il bindig dell'attributo -->
-    <h2 :class="miaClasse">{{messaggio}}</h2>
+    <h2 class="sottolineato" :class="miaClasse"> ---> {{messaggio}}</h2>
+
+    <!-- {'classeDaStampare': condizionePerStamparla} -->
+    <h2 :class="{'sottolineato': sottolinea}" > classe con condizione---> {{messaggio}}</h2>
+    <button @click="toggleSottolinea()">toggle sottolina</button><br>
+
+    <!-- se voglio avere più classi dinamiche le devo mettere in un array -->
+    <h2 :class="[miaClasse, altraClasse]"> --DUE CLASSI DINAMICHE-> {{messaggio}}</h2>
+
+    <h2 :class="[miaClasse, {'sottolineato': sottolinea}]"> --DUE CLASSI DINAMICHE di cui una con condizione-> {{messaggio}}</h2>
+
+
 
     <p>{{mioTestoNonHtml}}</p>
+
     <p v-text="mioTestoNonHtml"></p>
     <p v-text="mioTestoHtml"></p>
     <p v-html="mioTestoHtml"></p>
+
     <!-- tutot il codice fra le virgolette delle direttive, degli attributi bindati o delgi eventi è codice javaScript -->
     <button @click="miaClasse = 'rosso'">testo rosso senza funzione</button><br>
     <button @click="testoRosso()">testo rosso con funzione senza parametri</button><br>
@@ -39,13 +55,76 @@
 
     <button @click="mostraNascondiTesto(true)">mostra testo</button><br>
     <button @click="mostraNascondiTesto(false)">nascondi testo</button><br>
-    <button @click="toggleTesto()">toggle testo</button><br>
+    <button @click="toggleTesto()">toggle testo con funzione</button><br>
     <button @click="isTestoShow = !isTestoShow">toggle testo senza funzione</button><br>
-
+    
     <!-- v-show ->  se è false la condizione (o la variabile) l'elemento viene nascosto con display:none -->
-    <p v-show="isTestoShow">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam vel ut inventore quod sed perspiciatis voluptas explicabo asperiores, tenetur labore accusamus necessitatibus odit soluta quibusdam a excepturi laudantium atque fugiat?
-    </p>
+    <div v-show="isTestoShow">
+      <h3>con v-show</h3>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam vel ut inventore quod sed perspiciatis voluptas explicabo asperiores, tenetur labore accusamus necessitatibus odit soluta quibusdam a excepturi laudantium atque fugiat?
+      </p>
+    </div>
+
+    <!-- v-if ->  se è false la condizione (o la variabile) l'elemento non viene stampato -->
+    <div v-if="isTestoShow">
+      <h3>con v-if</h3>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam vel ut inventore quod sed perspiciatis voluptas explicabo asperiores, tenetur labore accusamus necessitatibus odit soluta quibusdam a excepturi laudantium atque fugiat?
+      </p>
+    </div>
+
+
+    <!-- v-if   -->
+    <input type="text" v-model="stampaConIf">
+    <h3 v-if="stampaConIf === 'primo'">Stampo primo</h3>
+    <h3 v-else-if="stampaConIf === 'secondo'">Stampo  secondo</h3>
+    <h3 v-else>Stampo else</h3>
+    <!-- end v-if   -->
+
+    <!-- v-for senza indice   -->
+    <!-- v-for:="elementoDelCiclo in array"   -->
+    <ul>
+      <li v-for="colore in colori">{{colore}}</li>
+    </ul>
+
+    <!-- v-for con indice   -->
+    <!-- v-for:="(elementoDelCiclo, indice) in array"   -->
+    <ul>
+      <li v-for="(colore, indice) in colori">{{indice}} - {{colore}}</li>
+    </ul>
+
+    <!-- v-for di un box  -->
+    <div v-for="colore in colori" class="box">
+      <h3 :style="'color:'+colore">{{colore}}</h3>
+    </div>
+
+    <!-- v-for con base numerica   -->
+    
+    <button @click="addRemoveBox(false)"><<</button>
+    <button @click="addRemoveBox(true)">>></button>
+    <div class="container">
+      <div v-for="n in limit"
+        class="box">
+        <h3 >{{n}}</h3>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div 
+        v-for="pizza in pizze"
+        class="pizza">
+        <h3>{{pizza.nome}}</h3>
+        <h4>{{pizza.prezzo}}</h4>
+        <ul>
+          <li v-for="ingrediente in pizza.ingredienti">{{ingrediente}}</li>
+        </ul>
+      </div>
+
+    </div>
+
+
     
 
   </div>

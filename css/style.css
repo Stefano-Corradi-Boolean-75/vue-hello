@@ -1,6 +1,19 @@
 body{
   padding-bottom: 200px;
 }
+.container{
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  margin: 0 auto;
+}
+.pizza{
+  background-color: dodgerblue;
+  color: white;
+  padding: 30px;
+  margin: 20px;
+  text-align: center;
+}
 .rosso{
   color: red;
 }
@@ -22,8 +35,13 @@ body{
 }
 
 .box{
-  background-color: aqua;
-  width: 300px;
-  padding: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: brown;
+  color: white;
+  width: 100px;
+  height: 100px;
   margin: 20px;
+
 }
